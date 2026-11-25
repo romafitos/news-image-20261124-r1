@@ -14,7 +14,7 @@ UTC = [("01:00", "Hanoi blast"), ("01:32", "Nepal M5.3"), ("02:30", "Colombia bo
 # one dark-blue summary bar; counts follow the 35 stories (Sanofi-Insmed counted with N. America, Insmed's home)
 REGION_BAR = ("ASIA 10 (East 5, South-East 3, South 2) · EUROPE 6 · AFRICA 5 · N. AMERICA 5 · "
               "LATIN AMERICA 4 · MIDDLE EAST 3 · OCEANIA 2")
-ULLEUNG_TIME = "16:52"
+ULLEUNG_TIME = "07:52"
 NUMBERS = [("+8.99%", "Taiex: biggest point gain ever"), ("50,018", "Dow's first close above 50k"),
            ("$41bn", "Sanofi's cash bid for Insmed"), (ULLEUNG_TIME, "Ulleung alert sounds, KST"),
            ("~175", "migrants missing off Senegal"), ("103.3", "US consumer confidence")]
@@ -33,7 +33,7 @@ HEROES = [
          src="Focus Taiwan · Yonhap · Nikkei Indexes"),
     dict(place="ULLEUNG ISLAND, S. KOREA", field="East Asia · security", tag="OFFICIAL", art="ulleung", big="",
          head="Russian bombers spark Ulleung's first air-raid alert",
-         dek="Shelter order 16:52–16:57 KST as Tu-160s and escorts fly through KADIZ; F-15Ks scramble; "
+         dek="Shelter order 07:52–07:57 KST as Tu-160s and escorts fly through KADIZ; F-15Ks scramble; "
              "Seoul summons Russia's attaché.",
          src="JCS · Defence Ministry · JoongAng Daily · AJP"),
 ]
