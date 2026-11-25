@@ -79,7 +79,7 @@ INDEX = [
          head="EU pact to relocate just 1,283 migrants"),
     dict(cont="MIDDLE EAST", region="MIDEAST", topic="energy", code="IQ", place="Baghdad", tag="OFFICIAL",
          head="Iraq orders takeover of Kurdish oilfields"),
-    dict(cont="AFRICA", region="AFRICA", topic="rights", code="ET", place="Alamata", tag="OFFICIAL",
+    dict(cont="AFRICA", region="AFRICA", topic="rights", code="ET", place="Tigray", tag="OFFICIAL",
          head="Amnesty: shelling may be war crimes"),
     dict(cont="AFRICA", region="AFRICA", topic="migration", code="SN", place="Dakar", tag="REPORTED",
          head="~175 missing on Europe-bound boat"),
