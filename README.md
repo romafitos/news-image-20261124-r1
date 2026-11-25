@@ -9,7 +9,9 @@ time zone, so it can show how the day actually finished: Wall Street's close, th
 the world chess championship, the court ruling on the Africa Cup of Nations title, and the US answer to
 Iran's tanker-mine claims.
 
-The page carries 35 stories from 7 regions. Each one happened, or was first reported, on Tuesday 24
+The page carries 35 stories from 7 regions and 20 fields, led by China's investigation of Shanghai's
+party chief, the Brooklyn jury's verdict on Huawei and the drone strike on Riyadh's PIF Tower. The counts in
+the strap and the region bar are computed from the story list itself. Each one happened, or was first reported, on Tuesday 24
 November somewhere in the world, and each was checked against two separate sources. Stories that many
 outlets were still running on Tuesday but that really belong to Monday or earlier (Nvidia bringing back
 Jensen Huang, the first three-tanker claim, the Danish phone ban and others) are kept off the page and
@@ -29,8 +31,9 @@ two runs always give the same file.
 
 - `render/stories.py` holds every headline, number, tag and map pin. The fact ledger behind it (two
   sources and a true date for each story) was kept beside the repo while building.
-- `render/art.py` draws every picture as plain SVG shapes written by hand: burning tankers in the strait,
-  the Asian index boards, Russian bombers over Ulleung, and the small scenes on the ten cards. There are
+- `render/art.py` draws every picture as plain SVG shapes written by hand: Shanghai's skyline under a
+  magnifier, the Brooklyn courtroom with the twelve counts, the struck tower in Riyadh, and the small
+  scenes on the ten cards (Ulleung's alert phone, the Taiex board, a burning tanker, the bus crash, the heat). There are
   no photographs, clip art or downloaded images.
 - `render/worldshape.py` is a rough hand-placed outline of the continents for the pin map.
 - `render/page.py` lays it all out as one 1024x1024 HTML page; `render/shoot.sh` screenshots it with

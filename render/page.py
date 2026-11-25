@@ -192,7 +192,7 @@ html,body{width:1024px;height:1024px;overflow:hidden;background:#F8F6F0 url("GRA
 .index .flag{flex:none;margin-right:4px;display:block}
 .index .pl{margin-right:3px}
 .index .ti{margin-left:3px;flex:none}
-.cleg{display:flex;flex-wrap:wrap;gap:2px 9px;font:700 8.5px/12px 'Noto Sans';color:#222;margin-top:3px}
+.cleg{display:flex;flex-wrap:wrap;gap:2px 7px;font:700 8.5px/12px 'Noto Sans';color:#222;margin-top:3px}
 .cleg span{display:flex;align-items:center}
 .cleg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}
 .index .pl{font-weight:800}
@@ -215,7 +215,7 @@ def build():
     pins = [(i + 1,) + tuple(p) + ((0, 0) if len(p) == 3 else ()) for i, p in enumerate(S.PINS)]
     legend = "".join(f'{tag(t)}{esc(d)} &nbsp;' for t, d in S.LEGEND)
     page = f"""<!doctype html><html><head><meta charset="utf-8"><style>{CSS.replace("GRAINURL", GRAIN)}</style></head><body><div class="page">
-<div class="strap"><span>THE WORLD IN ONE DAY · FULL-DAY EDITION</span><span class="r">{esc(S.STRAP)}</span></div>
+<div class="strap"><span>THE WORLD IN ONE DAY</span><span class="r">{esc(S.STRAP)}</span></div>
 <div class="date">Tuesday 24 November 2026</div>
 <div class="deck">{S.DECK}</div>
 <div class="full">{esc(S.FULLDAY)}</div>
@@ -226,7 +226,7 @@ def build():
 <div class="sec">TEN MORE FROM TUESDAY<i>{esc(S.CARDS_NOTE)}</i></div>
 <div class="cards">{cards}</div>
 <div class="sec">WHERE IT HAPPENED · ALSO ON TUESDAY 24 NOVEMBER<i>{esc(S.INDEX_NOTE)}</i></div>
-<div class="bottom"><div class="mapbox">{world_map(pins)}<div class="cleg"><b>CONTINENTS</b>{cont_legend()}</div><div class="legend">{legend}</div></div>
+<div class="bottom"><div class="mapbox">{world_map(pins)}<div class="cleg"><b>REGIONS</b>{cont_legend()}</div><div class="legend">{legend}</div></div>
 <div class="index"><ul>{idx}</ul></div></div>
 <div class="left"><b class="h">DATE CHECK · WHAT WE LEFT OUT</b>{S.LEFT_OUT}</div>
 <div class="foot"><span>{esc(S.FOOT_L)}</span><span>{esc(S.FOOT_R)}</span></div>

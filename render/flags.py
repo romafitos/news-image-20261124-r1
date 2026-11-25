@@ -138,8 +138,43 @@ def au():
             + star(10.6, 8, .7, "#fff") + star(9.2, 4.6, .6, "#fff"))
 
 
+def ch():
+    # Switzerland's white cross on red, drawn on the 14x10 field
+    return (f'<rect width="{W}" height="{H}" fill="#da291c"/>'
+            '<rect x="6" y="2" width="2" height="6" fill="#fff"/><rect x="4" y="4" width="6" height="2" fill="#fff"/>')
+
+
+def iq():
+    # red, white, black with the green inscription shown as a short bar
+    return hstripes(["#ce1126", "#ffffff", "#000000"]) + '<rect x="4.2" y="4.3" width="5.6" height="1.4" rx=".5" fill="#007a3d"/>'
+
+
+def et():
+    return (hstripes(["#078930", "#fcdd09", "#da121a"])
+            + '<circle cx="7" cy="5" r="2.4" fill="#0f47af"/>' + star(7, 5.1, 1.7, "#fcdd09"))
+
+
+def co():
+    # Colombia: yellow takes the top half, then blue and red quarters
+    return (f'<rect width="{W}" height="5" fill="#fcd116"/><rect y="5" width="{W}" height="2.5" fill="#003893"/>'
+            f'<rect y="7.5" width="{W}" height="2.5" fill="#ce1126"/>')
+
+
+def vn():
+    return f'<rect width="{W}" height="{H}" fill="#da251d"/>' + star(7, 5.2, 3.2, "#ffff00")
+
+
+def sb():
+    # Solomon Islands: blue over green split by a yellow diagonal, five white stars top left
+    return ('<path d="M0,0 L14,0 L0,10 Z" fill="#0051ba"/><path d="M14,0 L14,10 L0,10 Z" fill="#215b33"/>'
+            '<path d="M0,9.2 L12.9,0 L14,0 L14,.8 L1.1,10 L0,10 Z" fill="#fcd116"/>'
+            + star(2.2, 2, .75, "#fff") + star(4.6, 2, .75, "#fff") + star(3.4, 3.4, .75, "#fff")
+            + star(2.2, 4.8, .75, "#fff") + star(4.6, 4.8, .75, "#fff"))
+
+
 FLAGS = {"UA": ua, "FR": fr, "EU": eu, "SE": se, "SN": sn, "CD": cd, "ZA": za, "US": us, "CU": cu,
-         "BR": br, "NP": np, "CN": cn, "SG": sg, "MY": my, "BD": bd, "KP": kp, "JP": jp, "AU": au}
+         "BR": br, "NP": np, "CN": cn, "SG": sg, "MY": my, "BD": bd, "KP": kp, "JP": jp, "AU": au,
+         "CH": ch, "IQ": iq, "ET": et, "CO": co, "VN": vn, "SB": sb}
 
 
 def flag(code):

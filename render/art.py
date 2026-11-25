@@ -4,6 +4,8 @@ Every drawing is plain SVG built from shapes typed here; no clip art, fonts
 or images are pulled in. Hero scenes are 300x90, card scenes 180x48.
 """
 
+import math
+
 from stories import ULLEUNG_TIME
 
 INK = "#111111"
@@ -102,6 +104,99 @@ def hero_ulleung():
             f'<text x="270" y="64" text-anchor="middle" font-family="Noto Sans" font-size="6.5" font-weight="800" fill="#111">SHELTER</text>'
             f'<text x="270" y="75" text-anchor="middle" font-family="Noto Sans Mono" font-size="8.5" font-weight="700" fill="{RED}">{ULLEUNG_TIME}</text>'
             + light("ulleung", 0.15, 0.1))
+    return svg(300, 90, body)
+
+
+def hero_shanghai():
+    # Shanghai at dusk across the Huangpu: Pearl Tower, the tall twisted tower, and the party's
+    # watchdog magnifier over the city; a sealed case file sits on the Bund
+    body = ('<rect width="300" height="90" fill="#e9b98a"/><rect y="0" width="300" height="34" fill="#d98f6a"/>'
+            '<circle cx="40" cy="30" r="12" fill="#ffd9a0"/>'
+            '<rect y="72" width="300" height="18" fill="#5d7f99"/>'
+            + "".join(f'<path d="M{8+i*26},{80+(i%2)*4} l14,0" stroke="#9fbcd1" stroke-width="1"/>' for i in range(11))
+            # skyline (Pudong)
+            + '<path d="M60,72 l0,-20 l12,0 l0,-8 l10,0 l0,28 z M88,72 l0,-30 l14,0 l0,30 z M150,72 l0,-26 l16,0 l0,26 z'
+            ' M206,72 l0,-34 l12,0 l0,34 z M222,72 l0,-22 l18,0 l0,22 z M246,72 l0,-28 l14,0 l0,28 z M266,72 l0,-18 l30,0 l0,18 z" fill="#5a4a5c"/>'
+            # Shanghai Tower: tall tapering twist
+            '<path d="M182,72 l2,-58 q4,-6 8,0 l2,58 z" fill="#3e3446"/><path d="M186,20 l4,52" stroke="#6d6178" stroke-width="1"/>'
+            # Oriental Pearl Tower: tripod, two spheres, spire
+            '<path d="M118,72 l6,-24 l6,24 M124,48 l0,-30" stroke="#3e3446" stroke-width="2.4" fill="none"/>'
+            f'<circle cx="124" cy="52" r="7" fill="{RED}"/><circle cx="124" cy="30" r="5" fill="{RED}"/>'
+            '<path d="M124,25 l0,-14" stroke="#3e3446" stroke-width="1.4"/>'
+            + "".join(f'<rect x="{64+(i%3)*5}" y="{56+(i//3)*5}" width="2" height="2" fill="{GOLD}"/>' for i in range(6))
+            + "".join(f'<rect x="{153+(i%3)*5}" y="{51+(i//3)*5}" width="2" height="2" fill="{GOLD}"/>' for i in range(9))
+            # magnifier over the skyline
+            + '<circle cx="104" cy="40" r="20" fill="#fff4dc" fill-opacity=".28" stroke="#111" stroke-width="4"/>'
+            '<path d="M118,55 l16,16" stroke="#111" stroke-width="7" stroke-linecap="round"/>'
+            # case file with a red seal on the near bank
+            '<path d="M14,86 l0,-24 l40,-4 l4,26 z" fill="#efe2c2" stroke="#7a6a4a" stroke-width="1"/>'
+            f'<circle cx="38" cy="73" r="7" fill="none" stroke="{RED}" stroke-width="2"/>'
+            f'<text x="38" y="75.5" text-anchor="middle" font-family="Noto Sans" font-size="6" font-weight="900" fill="{RED}">CCDI</text>'
+            + light("shanghai", 0.13, 0.3))
+    return svg(300, 90, body)
+
+
+def hero_huawei():
+    # Brooklyn federal courtroom: panelled wall, the bench and gavel, scales, a router box in evidence,
+    # and the verdict counted out as twelve counts, ten marked guilty
+    panels = "".join(f'<rect x="{6+i*42}" y="6" width="36" height="44" fill="#8a5a3a" stroke="#6e452c" stroke-width="1"/>' for i in range(7))
+    body = ('<rect width="300" height="90" fill="#a86e47"/>' + panels
+            + '<rect y="50" width="300" height="40" fill="#5c3a26"/>'
+            # bench
+            '<rect x="96" y="40" width="108" height="30" fill="#3b2418"/><rect x="92" y="36" width="116" height="6" fill="#2a1a11"/>'
+            '<circle cx="150" cy="24" r="8" fill="#1d1d1d"/><path d="M136,40 q14,-14 28,0 z" fill="#1d1d1d"/>'
+            # scales of justice (left)
+            '<path d="M44,70 l0,-36 M28,40 l32,0" stroke="#d9b45a" stroke-width="2.2"/>'
+            '<path d="M28,40 l-6,12 l12,0 z M60,40 l-6,12 l12,0 z" fill="#d9b45a"/>'
+            '<rect x="36" y="70" width="16" height="4" fill="#d9b45a"/>'
+            # gavel striking (right of bench)
+            '<rect x="212" y="58" width="30" height="7" rx="2" fill="#2a1a11"/>'
+            '<g transform="rotate(-28 236 46)"><rect x="224" y="40" width="26" height="11" rx="2" fill="#2a1a11"/>'
+            '<rect x="235" y="50" width="4" height="20" fill="#2a1a11"/></g>'
+            '<path d="M214,52 l-6,-4 M216,47 l-4,-7 M246,54 l7,-3" stroke="#f3d27a" stroke-width="1.6"/>'
+            # router box in evidence
+            '<rect x="252" y="62" width="40" height="16" rx="2" fill="#2c3440"/>'
+            + "".join(f'<circle cx="{258+i*6}" cy="70" r="1.3" fill="#7ee0a1"/>' for i in range(5))
+            + '<path d="M260,62 l-3,-10 M284,62 l3,-10" stroke="#2c3440" stroke-width="2"/>'
+            '<rect x="250" y="80" width="44" height="8" fill="#efe6d0"/>'
+            '<text x="272" y="86.5" text-anchor="middle" font-family="Noto Sans" font-size="6" font-weight="900" fill="#111">EXHIBIT</text>')
+    # twelve counts: ten guilty (red), two cleared (light)
+    counts = ""
+    for k in range(12):
+        x, y = 106 + (k % 6) * 15.5, 50 + (k // 6) * 11
+        g = k < 10
+        counts += (f'<rect x="{x}" y="{y}" width="12" height="9" rx="1.5" fill="{RED if g else "#d8d2c4"}"/>'
+                   f'<text x="{x+6}" y="{y+7}" text-anchor="middle" font-family="Noto Sans" font-size="6.5" font-weight="900" '
+                   f'fill="{"#fff" if g else "#555"}">{"G" if g else "NG"}</text>')
+    return svg(300, 90, body + counts + light("huawei", 0.5, 0.0))
+
+
+def hero_riyadh():
+    # King Abdullah Financial District at dusk: the PIF Tower hit halfway up by a drone,
+    # smoke trailing, emergency lights at street level
+    body = ('<rect width="300" height="90" fill="#f0b071"/><rect width="300" height="30" fill="#e38b5a"/>'
+            '<rect y="78" width="300" height="12" fill="#c9a57a"/>'
+            '<path d="M0,78 l0,-18 l18,0 l0,-10 l16,0 l0,28 z M40,78 l0,-26 l20,0 l0,26 z M70,78 l0,-36 l16,0 l0,36 z'
+            ' M196,78 l0,-30 l18,0 l0,30 z M220,78 l0,-40 l14,0 l0,40 z M240,78 l0,-24 l22,0 l0,24 z M266,78 l0,-32 l16,0 l0,32 z'
+            ' M286,78 l0,-20 l14,0 l0,20 z" fill="#7b6a6e"/>'
+            # PIF Tower: tall, slim, faceted crown
+            '<path d="M128,78 l4,-66 l10,-8 l10,8 l4,66 z" fill="#4c4e5c"/><path d="M142,4 l0,74" stroke="#6b6e80" stroke-width="1.2"/>'
+            + "".join(f'<path d="M{131+i*0.2},{20+i*8} l{22-i*0.4},0" stroke="#6b6e80" stroke-width=".7"/>' for i in range(7))
+            # impact at mid facade
+            + f'<path d="M150,40 l10,-6 l-3,8 l10,0 l-9,6 l7,6 l-11,-2 l-2,8 l-5,-8 z" fill="{FIRE}"/>'
+            f'<path d="M151,42 l5,-2 l-1,4 l4,1 l-4,2 l2,3 l-5,-1 z" fill="{GOLD}"/>'
+            '<ellipse cx="176" cy="30" rx="18" ry="7" fill="#555" opacity=".6"/><ellipse cx="198" cy="20" rx="16" ry="6" fill="#555" opacity=".45"/>'
+            '<ellipse cx="220" cy="12" rx="14" ry="5" fill="#555" opacity=".3"/>'
+            # incoming drone track from the left
+            '<path d="M30,40 q50,-2 104,0" stroke="#111" stroke-width="1.2" stroke-dasharray="4 3" fill="none"/>'
+            '<path d="M12,38 l14,0 l-4,-4 l3,0 l6,4 l6,0 l0,2 l-6,0 l-6,4 l-3,0 l4,-4 l-14,0 z" fill="#111"/>'
+            # emergency vehicles
+            '<rect x="100" y="74" width="20" height="8" rx="1.5" fill="#fff"/><rect x="104" y="72" width="5" height="2" fill="#c8102e"/>'
+            '<rect x="162" y="74" width="20" height="8" rx="1.5" fill="#fff"/><rect x="172" y="72" width="5" height="2" fill="#1d4f91"/>'
+            '<circle cx="104" cy="83" r="1.8" fill="#111"/><circle cx="116" cy="83" r="1.8" fill="#111"/>'
+            '<circle cx="166" cy="83" r="1.8" fill="#111"/><circle cx="178" cy="83" r="1.8" fill="#111"/>'
+            '<text x="142" y="88.5" text-anchor="middle" font-family="Noto Sans" font-size="6" font-weight="900" fill="#3a2a1a">PIF TOWER · KAFD</text>'
+            + light("riyadh", 0.55, 0.0))
     return svg(300, 90, body)
 
 
@@ -313,7 +408,63 @@ def c_trophy():
                 f'<polygon points="{" ".join(pts)}" fill="#00853f"/>', None)
 
 
+def c_ulleung():
+    # the island seen from above, two bomber tracks crossing toward it, and the shelter alert on a phone
+    return card('<path d="M0,0 l18,0 q-4,14 2,26 q4,12 -2,22 l-18,0 z" fill="#a9c79a"/>'
+                '<path d="M178,4 q-60,8 -96,26 M178,16 q-50,8 -84,24" stroke="#c8102e" stroke-width="1.4" stroke-dasharray="3 2" fill="none"/>'
+                + jet(112, 16, 0.55) + jet(128, 26, 0.55)
+                + '<path d="M64,26 q5,-7 11,-3 q5,5 -2,10 q-8,2 -9,-7 z" fill="#2f7d4f" stroke="#1f4a2e" stroke-width=".8"/>'
+                '<rect x="34" y="6" width="22" height="34" rx="3" fill="#111"/><rect x="36.5" y="10" width="17" height="26" fill="#f6efe0"/>'
+                '<rect x="36.5" y="10" width="17" height="7" fill="#c8102e"/>'
+                '<text x="45" y="15.6" text-anchor="middle" font-family="Noto Sans" font-size="4.2" font-weight="900" fill="#fff">AIR RAID</text>'
+                f'<text x="45" y="28" text-anchor="middle" font-family="Noto Sans Mono" font-size="6" font-weight="700" fill="#c8102e">{ULLEUNG_TIME}</text>',
+                "#7fb0cf")
+
+
+def c_markets():
+    # Taipei exchange board: a rising bar chart and arrow
+    bars = "".join(f'<rect x="{40+i*14}" y="{40-h}" width="9" height="{h}" fill="#2f7d4f"/>' for i, h in enumerate([6, 9, 8, 13, 17, 22, 30]))
+    return card('<rect x="30" y="2" width="120" height="44" rx="2" fill="#0f1a2b" stroke="#7ee0a1" stroke-width="1"/>'
+                + bars + '<path d="M38,34 l26,-8 l22,4 l26,-20" stroke="#7ee0a1" stroke-width="2.2" fill="none"/>'
+                '<path d="M112,10 l-8,0 l8,-6 z" fill="#7ee0a1"/>'
+                '<text x="122" y="10" font-family="Noto Sans" font-size="6.5" font-weight="900" fill="#cfe9d8">TAIEX</text>', "#55709a")
+
+
+def c_hormuz():
+    # a tanker burning at sea, a mine bobbing beside it
+    return card('<rect y="30" width="180" height="18" fill="#6b98b8"/><rect width="180" height="30" fill="#e9a66a"/>'
+                '<path d="M0,26 q40,-8 80,-2 l0,6 l-80,0 z" fill="#8c6a48"/>'
+                + tanker(40, 36, 0.8, True)
+                + '<circle cx="122" cy="40" r="3.2" fill="#111"/><path d="M118,40 l-3,0 M126,40 l3,0 M122,36.6 l0,-3" stroke="#111" stroke-width="1.2"/>')
+
+
+def c_bus():
+    # night road: a coach running into the back of a broken-down truck
+    return card('<rect width="180" height="48" fill="#26324a"/><rect y="34" width="180" height="14" fill="#4a4f59"/>'
+                '<path d="M0,41 l180,0" stroke="#e2b33c" stroke-width="1" stroke-dasharray="8 6"/>'
+                '<rect x="96" y="14" width="40" height="20" fill="#d8d2c4"/><rect x="136" y="20" width="18" height="14" fill="#c8102e"/>'
+                '<circle cx="104" cy="35" r="3.5" fill="#111"/><circle cx="146" cy="35" r="3.5" fill="#111"/>'
+                '<path d="M30,34 l0,-20 q0,-4 4,-4 l52,0 l6,6 l0,18 z" fill="#e8c547"/>'
+                + "".join(f'<rect x="{36+i*10}" y="14" width="7" height="7" fill="#9fc3dd"/>' for i in range(5))
+                + '<circle cx="42" cy="35" r="3.5" fill="#111"/><circle cx="80" cy="35" r="3.5" fill="#111"/>'
+                f'<path d="M92,20 l6,-6 l0,8 l6,-4 l-4,8 l6,2 l-8,2 l2,6 l-6,-4 z" fill="{FIRE}"/>', None)
+
+
+def c_heat():
+    # a blazing sun, a thermometer at the top of its scale, heat shimmer over parched grass
+    return card('<rect width="180" height="48" fill="#f6d9a0"/><rect y="36" width="180" height="12" fill="#c9b26a"/>'
+                '<circle cx="54" cy="18" r="11" fill="#f2a12e"/>'
+                + "".join(f'<path d="M{54+15*math.cos(k*0.785):.1f},{18+15*math.sin(k*0.785):.1f} '
+                          f'l{5*math.cos(k*0.785):.1f},{5*math.sin(k*0.785):.1f}" stroke="#f2a12e" stroke-width="2"/>'
+                          for k in range(8))
+                + '<path d="M80,30 q4,-4 8,0 q4,4 8,0 M80,24 q4,-4 8,0 q4,4 8,0" stroke="#e8792b" stroke-width="1.2" fill="none"/>'
+                '<rect x="112" y="4" width="8" height="30" rx="4" fill="#fff" stroke="#111" stroke-width="1"/>'
+                '<rect x="114" y="8" width="4" height="26" fill="#c8102e"/><circle cx="116" cy="36" r="6" fill="#c8102e" stroke="#111" stroke-width="1"/>'
+                + "".join(f'<path d="M122,{8+i*5} l4,0" stroke="#111" stroke-width=".8"/>' for i in range(5)))
+
+
 SCENES = {
+    "ulleung": c_ulleung, "markets": c_markets, "hormuz": c_hormuz, "bus": c_bus, "heat": c_heat,
     "trophy": c_trophy,
     "drones": c_drones, "strike": c_strike, "oil": c_oil, "report": c_report,
     "quake": c_quake, "rocket": c_rocket, "gavel": c_gavel, "ship": c_ship, "court": c_court_building,
@@ -323,6 +474,7 @@ SCENES = {
 }
 
 HEROES = {
+    "shanghai": hero_shanghai, "huawei": hero_huawei, "riyadh": hero_riyadh,
     "hormuz": hero_hormuz, "markets": hero_markets, "ulleung": hero_ulleung,
     "drones": hero_drones, "football": hero_football,
 }
