@@ -4,6 +4,8 @@ Every drawing is plain SVG built from shapes typed here; no clip art, fonts
 or images are pulled in. Hero scenes are 300x90, card scenes 180x48.
 """
 
+from stories import ULLEUNG_TIME
+
 INK = "#111111"
 NAVY = "#1d2b45"
 SEA = "#6b98b8"
@@ -20,6 +22,16 @@ def svg(w, h, body, bg=None):
     back = f'<rect width="{w}" height="{h}" fill="{bg}"/>' if bg else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" '
             f'viewBox="0 0 {w} {h}" preserveAspectRatio="xMidYMid slice">{back}{body}</svg>')
+
+
+def light(key, sx, sy):
+    # soft directional light for a hero scene: a warm glow from the light source (sx, sy as 0-1 of the frame)
+    # fading out, plus a gentle shade toward the far corner; flat shapes stay flat underneath
+    return (f'<defs><radialGradient id="glow-{key}" cx="{sx}" cy="{sy}" r="0.9">'
+            f'<stop offset="0" stop-color="#fff4d6" stop-opacity=".24"/>'
+            f'<stop offset=".55" stop-color="#fff4d6" stop-opacity=".04"/>'
+            f'<stop offset="1" stop-color="#0b1220" stop-opacity=".18"/></radialGradient></defs>'
+            f'<rect width="300" height="90" fill="url(#glow-{key})"/>')
 
 
 def tanker(x, y, s=1.0, burning=False):
@@ -44,7 +56,8 @@ def hero_hormuz():
             + tanker(14, 66, 1.05, True) + tanker(112, 70, 0.8, True) + tanker(206, 66, 0.85, False)
             + f'<circle cx="96" cy="82" r="4" fill="{INK}"/><path d="M92,82 l-4,0 M100,82 l4,0 M96,78 l0,-4" stroke="{INK}" stroke-width="1.5"/>'
             f'<path d="M190,80 l100,0" stroke="#fff" stroke-width="1.5" stroke-dasharray="4 3"/>'
-            f'<text x="240" y="76" text-anchor="middle" font-family="Noto Sans" font-size="8" font-weight="800" fill="#fff">US: LANES CLEAR</text>')
+            f'<text x="240" y="76" text-anchor="middle" font-family="Noto Sans" font-size="8" font-weight="800" fill="#fff">US: LANES CLEAR</text>'
+            + light("hormuz", 0.87, 0.2))
     return svg(300, 90, body)
 
 
@@ -61,7 +74,7 @@ def hero_markets():
                    f'<text x="{x+27}" y="35" text-anchor="middle" font-family="Noto Sans" font-size="8.5" font-weight="800" fill="#cfe9d8">{lab}</text>'
                    f'<text x="{x+27}" y="49" text-anchor="middle" font-family="Noto Sans" font-size="11.5" font-weight="900" fill="#7ee0a1">{pct}</text>'
                    f'<rect x="{x+15}" y="{82-h}" width="24" height="{h}" fill="{GREEN}"/>')
-    return svg(300, 90, sky + skyline + lights + boards)
+    return svg(300, 90, sky + skyline + lights + boards + light("markets", 0.5, 0.05))
 
 
 def jet(x, y, s=1.0, color=INK):
@@ -76,8 +89,8 @@ def hero_ulleung():
     body = (f'<rect width="300" height="90" fill="#7fb0cf"/>'
             f'<path d="M0,0 l46,0 q-6,18 4,34 q8,16 -2,30 q-6,14 4,26 l-52,0 z" fill="#a9c79a"/>'
             f'<text x="6" y="14" font-family="Noto Sans" font-size="8" font-weight="800" fill="#2d4a2a">KOREA</text>'
-            f'<path d="M150,0 q40,40 20,90" stroke="#fff" stroke-width="1.4" stroke-dasharray="5 3" fill="none"/>'
-            f'<text x="176" y="84" font-family="Noto Sans" font-size="7.5" font-weight="800" fill="#fff">KADIZ</text>'
+            f'<path d="M206,0 q26,44 12,90" stroke="#fff" stroke-width="1.4" stroke-dasharray="5 3" fill="none"/>'
+            f'<text x="190" y="84" font-family="Noto Sans" font-size="7.5" font-weight="800" fill="#fff">KADIZ</text>'
             f'<path d="M296,8 q-90,14 -150,40 q-40,18 -60,40" stroke="{RED}" stroke-width="1.8" stroke-dasharray="3 2" fill="none"/>'
             f'<path d="M296,24 q-80,14 -140,40 q-30,14 -50,26" stroke="{RED}" stroke-width="1.8" stroke-dasharray="3 2" fill="none"/>'
             + jet(200, 26, 0.9) + jet(226, 40, 0.9)
@@ -87,7 +100,8 @@ def hero_ulleung():
             f'<rect x="250" y="44" width="40" height="10" fill="{RED}"/>'
             f'<text x="270" y="52" text-anchor="middle" font-family="Noto Sans" font-size="6.5" font-weight="900" fill="#fff">AIR RAID</text>'
             f'<text x="270" y="64" text-anchor="middle" font-family="Noto Sans" font-size="6.5" font-weight="800" fill="#111">SHELTER</text>'
-            f'<text x="270" y="75" text-anchor="middle" font-family="Noto Sans Mono" font-size="8.5" font-weight="700" fill="{RED}">07:52</text>')
+            f'<text x="270" y="75" text-anchor="middle" font-family="Noto Sans Mono" font-size="8.5" font-weight="700" fill="{RED}">{ULLEUNG_TIME}</text>'
+            + light("ulleung", 0.15, 0.1))
     return svg(300, 90, body)
 
 

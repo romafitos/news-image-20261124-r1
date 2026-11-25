@@ -7,14 +7,16 @@ Numbering: 1-3 heroes, 4-13 picture cards, 14-35 index. Stories 1-13 are pinned 
 STRAP = "35 STORIES · 7 REGIONS · EVERY ONE DATED TUESDAY 24 NOVEMBER 2026"
 DECK = ("Iran claims more Hormuz mine hits; US says lanes clear<b>·</b>"
         "Taiwan stocks soar 9%<b>·</b>Russian bombers spark Korean island alert<b>·</b>Dow tops 50,000")
-FULLDAY = ("FULL DAY, TO MIDNIGHT EVERYWHERE: Wall Street's close · chess Game 1 result · CENTCOM's answer to Iran · "
+FULLDAY = ("FULL DAY, TO MIDNIGHT EVERYWHERE: Wall Street's close · Chess Game 1 result · CENTCOM's answer to Iran · "
            "CAS ruling on the AFCON title")
 UTC = [("01:00", "Hanoi blast"), ("01:32", "Nepal M5.3"), ("02:30", "Colombia bomb"), ("05:30", "Taiex close"),
        ("05:30", "Sanofi deal"), ("11:14", "Ariane 6"), ("14:00", "Chess G1"), ("20:44", "CENTCOM denial"), ("21:00", "Dow 50,018")]
-REGIONS = [("ASIA", 10, "#1d4f91", "ASIA 10 · EAST 5 · SOUTH-EAST 3 · SOUTH 2"), ("EUROPE", 7, "#2f5d7c"), ("AFRICA", 5, "#2f7d4f"), ("N. AMERICA", 4, "#6b3d6e"),
-           ("LATIN AMERICA", 4, "#8a5a00"), ("MIDDLE EAST", 3, "#7a4a1e"), ("OCEANIA", 2, "#3b6b6b")]
+# one dark-blue summary bar; counts follow the 35 stories (Sanofi-Insmed counted with N. America, Insmed's home)
+REGION_BAR = ("ASIA 10 (East 5, South-East 3, South 2) · EUROPE 6 · AFRICA 5 · N. AMERICA 5 · "
+              "LATIN AMERICA 4 · MIDDLE EAST 3 · OCEANIA 2")
+ULLEUNG_TIME = "16:52"
 NUMBERS = [("+8.99%", "Taiex: biggest point gain ever"), ("50,018", "Dow's first close above 50k"),
-           ("$41bn", "Sanofi's cash bid for Insmed"), ("07:52", "Ulleung alert sounds, KST"),
+           ("$41bn", "Sanofi's cash bid for Insmed"), (ULLEUNG_TIME, "Ulleung alert sounds, KST"),
            ("~175", "migrants missing off Senegal"), ("103.3", "US consumer confidence")]
 
 HEROES = [
@@ -31,7 +33,7 @@ HEROES = [
          src="Focus Taiwan · Yonhap · Nikkei Indexes"),
     dict(place="ULLEUNG ISLAND, S. KOREA", field="East Asia · security", tag="OFFICIAL", art="ulleung", big="",
          head="Russian bombers spark Ulleung's first air-raid alert",
-         dek="Shelter order 07:52-07:57 KST as Tu-160s and escorts fly through KADIZ; F-15Ks scramble; "
+         dek="Shelter order 16:52–16:57 KST as Tu-160s and escorts fly through KADIZ; F-15Ks scramble; "
              "Seoul summons Russia's attaché.",
          src="JCS · Defence Ministry · JoongAng Daily · AJP"),
 ]
@@ -53,19 +55,19 @@ CARDS = [
          head="Car bomb at Colombian governor's office", dek="No deaths; went off 02:30 UTC"),
     dict(place="Alamata, Ethiopia", tag="OFFICIAL", art="report", big="14 KILLED",
          head="Amnesty: Tigray shelling may be war crimes", dek="14 civilian deaths verified"),
-    dict(place="CAS · Senegal", tag="OFFICIAL", art="trophy", big="SENEGAL",
+    dict(place="Dakar · Senegal", tag="OFFICIAL", art="trophy", big="SENEGAL",
          head="Court hands AFCON title back to Senegal", dek="Morocco's 3-0 forfeit win set aside"),
     dict(place="Geneva", tag="CONFIRMED", art="chess", big="½-½ G1",
-         head="World chess title opens with a draw", dek="Sindarov-Gukesh, 38 moves"),
+         head="World chess title opens with a draw", dek="Sindarov–Gukesh, 38 moves"),
 ]
 
 # index 14-35, grouped by continent (colour = continent circle); code = flag drawn by flags.py
-CONTINENTS = [("EUROPE", "#1E40AF"), ("AFRICA", "#D97706"), ("AMERICAS", "#B91C1C"),
-              ("ASIA", "#047857"), ("OCEANIA", "#0F766E")]
+CONTINENTS = [("EUROPE", "#1E40AF"), ("AFRICA", "#D9822B"), ("AMERICAS", "#B91C1C"),
+              ("ASIA", "#2E7D5B"), ("OCEANIA", "#0F766E")]
 INDEX = [
     dict(cont="EUROPE", code="UA", place="Uzhhorod", tag="OFFICIAL", head="Hungary's Magyar meets Zelensky"),
     dict(cont="EUROPE", code="FR", place="Versailles", tag="CONFIRMED", head="Nahel officer sent to murder trial"),
-    dict(cont="EUROPE", code="EU", place="Brussels", tag="REPORTED", head="EU pact to move just 1,283 migrants"),
+    dict(cont="EUROPE", code="EU", place="Brussels", tag="REPORTED", head="EU pact to relocate just 1,283 migrants"),
     dict(cont="EUROPE", code="SE", place="Stockholm", tag="CONFIRMED", head="PM vote on Kristersson set for 30 Nov"),
     dict(cont="AFRICA", code="SN", place="Dakar", tag="REPORTED", head="~175 missing on Europe-bound boat"),
     dict(cont="AFRICA", code="CD", place="DR Congo", tag="OFFICIAL", head="Gavi deal for 1.5M Ebola vaccine doses"),
@@ -89,11 +91,14 @@ INDEX = [
 
 # lon, lat for stories 1-13, with an optional label nudge (dx, dy) in map px
 # real lon, lat for stories 1-13 + continent (pin colour), with an optional label nudge (dx, dy) in map px
+# #5 sits on Insmed's home, Bridgewater NJ; #10 on Villavicencio itself, label kept on the dot (central Colombia)
 PINS = [(56.4, 26.6, "ASIA", 9, 6), (121.5, 25.0, "ASIA", 6, 6), (130.9, 37.5, "ASIA", 9, -3),
-        (35.1, 47.8, "EUROPE", 7, -9), (2.3, 48.9, "EUROPE", -10, -9), (34.4, 31.5, "ASIA", -10, 3),
+        (35.1, 47.8, "EUROPE", 6, -8), (-74.6, 40.6, "AMERICAS", -9, 8), (34.4, 31.5, "ASIA", -10, 3),
         (-74.0, 40.7, "AMERICAS", 8, -6), (44.4, 33.3, "ASIA", 9, -7), (105.8, 21.0, "ASIA", -2, 9),
-        (-73.6, 4.1, "AMERICAS", 5, 5), (39.6, 12.4, "AFRICA", 0, 0), (-16.2, 14.6, "AFRICA", 10, 2),
-        (6.1, 46.2, "EUROPE", -11, 7)]
+        (-73.6, 4.1, "AMERICAS", 0, 0), (39.6, 12.4, "AFRICA", 0, 0), (-16.2, 14.6, "AFRICA", 10, 2),
+        (6.1, 46.2, "EUROPE", -9, 0)]
+# pins in the crowded Europe and East Asia clusters are drawn a little smaller
+DENSE = {2, 3, 4, 13}
 LEGEND = [("CONFIRMED", "2+ outlets or a final result"), ("OFFICIAL", "on the record"),
           ("REPORTED", "outlets citing sources"), ("CLAIM", "one side, unverified")]
 CARDS_NOTE = "stories 1-13 are pinned on the map"

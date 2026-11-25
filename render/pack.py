@@ -11,7 +11,7 @@ import sys
 
 from PIL import Image, ImageOps
 
-LO, HI = 175_000, 200_000
+LO, HI = 180_000, 230_000
 
 
 def measure(img):
@@ -33,11 +33,12 @@ def encode(img):
 
 
 def ladder(raw):
+    # richest palette first, so the page keeps its colours whenever the size band allows; octree keeps the
+    # flat brand colours (continent pins, tag badges) exact where median-cut drifted them
+    for colors in (256, 192, 160, 128, 96, 80, 64):
+        yield f"palette{colors}", raw.quantize(colors=colors, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE)
     for bits in (4, 5, 6):
         yield f"posterize{bits}", ImageOps.posterize(raw, bits)
-    # palettes from fewest colours up: busier pages need a tighter palette to stay under 200 KB
-    for colors in (96, 128, 160, 192, 256):
-        yield f"palette{colors}", raw.quantize(colors=colors, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
 
 
 def main():
