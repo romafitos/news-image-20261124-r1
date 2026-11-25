@@ -144,9 +144,9 @@ STRAP = (f"{N_STORIES} STORIES · {N_REGIONS} REGIONS · {N_FIELDS} FIELDS · "
 # real lon, lat for stories 1-13 + map colour group, with an optional label nudge (dx, dy) in map px
 # #9 sits on Insmed's home, Bridgewater NJ; #2 Brooklyn and #10 Wall Street share New York, so labels fan out
 PINS = [(121.5, 31.2, "ASIA", -10, -4), (-73.9, 40.7, "AMERICAS", -2, -12), (46.7, 24.7, "MIDDLE EAST", -2, 10),
-        (130.9, 37.5, "ASIA", 9, -4), (121.5, 25.0, "ASIA", 8, 6), (56.4, 26.6, "MIDDLE EAST", 10, -6),
+        (130.9, 37.5, "ASIA", 9, -4), (121.5, 25.0, "ASIA", 8, 6), (56.4, 26.6, "MIDDLE EAST", 10, -9),
         (35.1, 47.8, "EUROPE", 7, -8), (34.4, 31.5, "MIDDLE EAST", -11, 3), (-74.6, 40.6, "AMERICAS", -13, 4),
-        (-74.0, 40.7, "AMERICAS", 12, 2), (55.9, 25.6, "MIDDLE EAST", 12, 7), (-0.1, 51.5, "EUROPE", -10, -6),
+        (-74.0, 40.7, "AMERICAS", 12, 2), (55.9, 25.6, "MIDDLE EAST", 12, 10), (-0.1, 51.5, "EUROPE", -10, -6),
         (-17.4, 14.7, "AFRICA", -6, 9)]
 # pins in the crowded clusters are drawn a little smaller
 DENSE = {2, 3, 6, 7, 8, 9, 10, 11}
@@ -157,7 +157,7 @@ INDEX_NOTE = "14-35 · grouped by region · letters = tag"
 LEFT_OUT = ("Nvidia reinstates Jensen Huang (Mon 23) · IRGC's first three-tanker claim (Mon 23 night) · "
             "first drone strike on the PIF Tower (Thu 19) · Houthi claim for Tuesday's strike (Wed 25) · US sanctions Iran's shadow banks (Mon 23) · "
             "DR Congo plane lost (Sun 22) · Cikande factory fire (Sat 21). "
-            "<b>Not yet:</b> Shenzhou-24 launch (Wed 25 Beijing) · Australia–Solomons treaty signing (Wed 25).")
+            "<b>Not yet:</b> Australia–Solomons treaty signing (Wed 25).")
 FOOT_L = ("Every story happened or was first reported on Tuesday 24 November 2026 · made after the day ended everywhere · "
           "drawings our own, no photographs")
 FOOT_R = "Times UTC unless marked"

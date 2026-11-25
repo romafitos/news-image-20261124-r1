@@ -62,7 +62,9 @@ def world_map(pins):
             marks.append(f'<path d="M{x},{y} L{lx},{ly}" stroke="#111" stroke-width=".8"/>')
         marks.append(f'<circle cx="{x}" cy="{y}" r="1.7" fill="#111"/>')
         ring = "#c8102e" if n <= 3 else "#fff"
-        marks.append(f'<circle cx="{lx}" cy="{ly}" r="{r}" fill="{CONT[cont]}" stroke="{ring}" stroke-width="1.3"/>'
+        # thin white outline just outside every pin so neighbouring pins separate cleanly
+        marks.append(f'<circle cx="{lx}" cy="{ly}" r="{r + 1.15:.2f}" fill="none" stroke="#fff" stroke-width="1"/>'
+                     f'<circle cx="{lx}" cy="{ly}" r="{r}" fill="{CONT[cont]}" stroke="{ring}" stroke-width="1.3"/>'
                      f'<text x="{lx}" y="{ly + fs * 0.36:.1f}" text-anchor="middle" font-family="Noto Sans" font-size="{fs}" '
                      f'font-weight="800" fill="#fff">{n}</text>')
     return (f'<svg width="{MAP_W}" height="{MAP_H}" viewBox="0 0 {MAP_W} {MAP_H}">'
@@ -76,7 +78,7 @@ def pin_boxes(pins):
         x, y = proj(lon, lat)
         dense = n in stories.DENSE
         r = (6.5 if dense else 7.5) if n <= 3 else (5.6 if dense else 6.5)
-        out.append((n, x + dx, y + dy, r + 0.65))
+        out.append((n, x + dx, y + dy, r + 1.65))  # outer edge of the white outline
     return out
 
 

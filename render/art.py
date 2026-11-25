@@ -452,7 +452,13 @@ def c_bus():
 
 def c_heat():
     # a blazing sun, a thermometer at the top of its scale, heat shimmer over parched grass
-    return card('<rect width="180" height="48" fill="#f6d9a0"/><rect y="36" width="180" height="12" fill="#c9b26a"/>'
+    return card('<rect width="180" height="48" fill="#f6d9a0"/>'
+                # faint London skyline on the right horizon (the card frame shows about x 22-158): Big Ben, the Shard, the Eye
+                '<g fill="#a0522d" opacity=".26"><rect x="125" y="13" width="5" height="23"/><path d="M124.5,13 l3,-6 l3,6 z"/>'
+                '<rect x="132" y="24" width="7" height="12"/><path d="M140,36 l5,-31 l5,31 z"/></g>'
+                '<circle cx="153.5" cy="20" r="5.5" fill="none" stroke="#a0522d" stroke-width="1" opacity=".3"/>'
+                '<path d="M153.5,20 l0,16 M148,20 l11,0 M149.6,16.1 l7.8,7.8 M157.4,16.1 l-7.8,7.8" stroke="#a0522d" stroke-width=".5" opacity=".3"/>'
+                '<rect y="36" width="180" height="12" fill="#c9b26a"/>'
                 '<circle cx="54" cy="18" r="11" fill="#f2a12e"/>'
                 + "".join(f'<path d="M{54+15*math.cos(k*0.785):.1f},{18+15*math.sin(k*0.785):.1f} '
                           f'l{5*math.cos(k*0.785):.1f},{5*math.sin(k*0.785):.1f}" stroke="#f2a12e" stroke-width="2"/>'
