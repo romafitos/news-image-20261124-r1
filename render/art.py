@@ -259,26 +259,44 @@ def c_strike():
 
 
 def c_oil():
+    # derrick scaled down so its crown sits well inside the frame; pipeline and a flare
     return card('<rect y="40" width="180" height="8" fill="#b89a74"/>'
-                '<path d="M40,40 l12,-34 l12,34 M44,28 l16,0 M47,18 l10,0" stroke="#111" stroke-width="2.5" fill="none"/>'
-                '<path d="M96,40 l0,-8 l40,0 l0,8 z" fill="#333"/><path d="M104,32 l20,-14 l18,4 l-4,6 l-14,-2 l-16,10 z" fill="#111"/>'
-                '<circle cx="152" cy="14" r="7" fill="#e8792b"/>', "#f1d9b8")
+                '<path d="M46,40 l9,-24 l9,24 M49,32 l12,0 M51.5,25 l7,0 M50,40 l10,-12 M60,40 l-10,-12" '
+                'stroke="#111" stroke-width="2" fill="none"/><rect x="52" y="13" width="6" height="4" fill="#111"/>'
+                '<path d="M96,40 l0,-8 l40,0 l0,8 z" fill="#333"/><path d="M104,32 l20,-12 l18,4 l-4,6 l-14,-2 l-16,8 z" fill="#111"/>'
+                '<rect x="64" y="36" width="34" height="3" fill="#555"/>'
+                '<circle cx="150" cy="17" r="6" fill="#e8792b"/>', "#f1d9b8")
 
 
 def c_report():
-    return card('<rect x="62" y="4" width="44" height="40" fill="#fff" stroke="#111"/>'
-                '<rect x="62" y="4" width="44" height="9" fill="#ffd400"/>'
-                + "".join(f'<rect x="68" y="{18+i*6}" width="{32-(i%2)*10}" height="2" fill="#555"/>' for i in range(4))
-                + '<path d="M118,44 l0,-14 l12,-8 l12,8 l0,14 z" fill="#8a7f6c"/><path d="M126,30 l4,-6 l4,6" stroke="#e8792b" stroke-width="3" fill="none"/>', "#e7e2d4")
+    # Alamata after artillery fire: shell-struck houses, craters in the road, smoke columns
+    return card('<rect y="34" width="180" height="14" fill="#b9a98a"/>'
+                '<path d="M28,34 l0,-14 l10,-7 l10,7 l0,14 z" fill="#9c8f78"/>'
+                '<path d="M40,13 l8,7 l0,14 l-5,0 l-3,-6 l-2,3 z" fill="#e7e2d4"/>'
+                '<path d="M58,34 l0,-18 l26,0 l0,6 l-6,4 l-4,-5 l-5,7 l-4,-4 l-3,4 z" fill="#8a7f6c"/>'
+                '<rect x="62" y="21" width="5" height="5" fill="#2b2b2b"/><rect x="73" y="20" width="4" height="4" fill="#2b2b2b"/>'
+                '<path d="M120,34 l0,-12 l12,-6 l14,6 l0,12 z" fill="#9c8f78"/>'
+                '<path d="M128,22 l6,-4 l4,6 l-3,3 l-2,-3 l-3,4 z" fill="#e7e2d4"/>'
+                '<ellipse cx="98" cy="40" rx="9" ry="2.6" fill="#5b4f3d"/><ellipse cx="98" cy="39.5" rx="5" ry="1.4" fill="#2e271d"/>'
+                '<ellipse cx="152" cy="42" rx="7" ry="2.2" fill="#5b4f3d"/><ellipse cx="44" cy="43" rx="6" ry="1.8" fill="#5b4f3d"/>'
+                '<path d="M88,38 l-6,-3 M108,38 l6,-4 M98,36 l0,-5" stroke="#5b4f3d" stroke-width="1.2"/>'
+                '<ellipse cx="80" cy="10" rx="12" ry="6" fill="#4a4a4a" opacity=".6"/>'
+                '<ellipse cx="72" cy="4" rx="9" ry="4" fill="#4a4a4a" opacity=".45"/>'
+                '<ellipse cx="140" cy="10" rx="10" ry="5" fill="#4a4a4a" opacity=".55"/>'
+                '<path d="M76,18 l3,-6 l3,6 z M136,18 l3,-5 l3,5 z" fill="#e8792b"/>', "#e7ddc9")
 
 
 def c_trophy():
-    # the Africa Cup of Nations trophy handed back: cup, Senegal's colours, a gavel
+    # Senegal's flag: green, yellow, red, with the green star centred on the yellow band
+    import math
+    pts = []
+    for k in range(10):
+        r = 11 if k % 2 == 0 else 4.6
+        ang = -math.pi / 2 + k * math.pi / 5
+        pts.append("%.2f,%.2f" % (90 + r * math.cos(ang), 22 + r * math.sin(ang)))
     return card('<rect x="0" y="0" width="60" height="48" fill="#00853f"/><rect x="60" y="0" width="60" height="48" fill="#fdef42"/>'
                 '<rect x="120" y="0" width="60" height="48" fill="#e31b23"/>'
-                '<path d="M90,22 l-6,-2 l2,-8 l-6,0 l0,-4 l20,0 l0,4 l-6,0 l2,8 z" fill="#00853f"/>'
-                '<path d="M78,6 l24,0 l-2,16 q-10,8 -20,0 z" fill="#c9a227" stroke="#111" stroke-width="1"/>'
-                '<rect x="86" y="24" width="8" height="10" fill="#c9a227"/><rect x="80" y="34" width="20" height="6" fill="#111"/>', None)
+                f'<polygon points="{" ".join(pts)}" fill="#00853f"/>', None)
 
 
 SCENES = {

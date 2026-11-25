@@ -8,13 +8,17 @@ import os
 
 import art
 import stories
+from flags import flag
 from worldshape import LANDS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out")
 
-MAP_W, MAP_H = 352, 150
-LAT_TOP, LAT_BOT, LON_L, LON_R = 76, -50, -170, 182
+# equirectangular (plate carree): 1 px per degree on both axes, so shapes keep true proportions
+MAP_W, MAP_H = 352, 130
+LAT_TOP, LAT_BOT, LON_L, LON_R = 80, -50, -170, 182
+LAND, SEA = "#D8D3C8", "#EEF2F5"
+CONT = dict(stories.CONTINENTS)
 
 
 def esc(s):
@@ -31,21 +35,23 @@ def world_map(pins):
     shapes = []
     for pts in LANDS.values():
         d = "M" + " L".join("%s,%s" % proj(lo, la) for lo, la in pts) + " Z"
-        shapes.append(f'<path d="{d}" fill="#c9bd9c" stroke="#9c9178" stroke-width=".6"/>')
-    grid = "".join(f'<path d="M0,{proj(0, la)[1]} L{MAP_W},{proj(0, la)[1]}" stroke="#d3dee6" stroke-width=".6"/>'
+        shapes.append(f'<path d="{d}" fill="{LAND}" stroke="#a9a293" stroke-width=".6"/>')
+    grid = "".join(f'<path d="M0,{proj(0, la)[1]} L{MAP_W},{proj(0, la)[1]}" stroke="#dbe3ea" stroke-width=".6"/>'
                    for la in (60, 30, 0, -30))
     marks = []
-    for n, lon, lat, dx, dy in pins:
+    for n, lon, lat, cont, dx, dy in pins:
         x, y = proj(lon, lat)
         lx, ly = x + dx, y + dy
+        r = 7.5 if n <= 3 else 6.5
         if dx or dy:  # leader line from the true spot to a nudged label
-            marks.append(f'<path d="M{x},{y} L{lx},{ly}" stroke="#111" stroke-width=".8"/>'
-                         f'<circle cx="{x}" cy="{y}" r="1.6" fill="#111"/>')
-        marks.append(f'<circle cx="{lx}" cy="{ly}" r="7" fill="{"#c8102e" if n <= 3 else "#1d2b45"}" stroke="#fff" stroke-width="1"/>'
-                     f'<text x="{lx}" y="{ly + 3.1}" text-anchor="middle" font-family="Noto Sans" font-size="8" '
+            marks.append(f'<path d="M{x},{y} L{lx},{ly}" stroke="#111" stroke-width=".8"/>')
+        marks.append(f'<circle cx="{x}" cy="{y}" r="1.7" fill="#111"/>')
+        ring = "#c8102e" if n <= 3 else "#fff"
+        marks.append(f'<circle cx="{lx}" cy="{ly}" r="{r}" fill="{CONT[cont]}" stroke="{ring}" stroke-width="1.3"/>'
+                     f'<text x="{lx}" y="{ly + 3.2}" text-anchor="middle" font-family="Noto Sans" font-size="9" '
                      f'font-weight="800" fill="#fff">{n}</text>')
     return (f'<svg width="{MAP_W}" height="{MAP_H}" viewBox="0 0 {MAP_W} {MAP_H}">'
-            f'<rect width="{MAP_W}" height="{MAP_H}" fill="#e9eff2"/>{grid}{"".join(shapes)}{"".join(marks)}</svg>')
+            f'<rect width="{MAP_W}" height="{MAP_H}" fill="{SEA}"/>{grid}{"".join(shapes)}{"".join(marks)}</svg>')
 
 
 TAG_CSS = {"CONFIRMED": "t-c", "OFFICIAL": "t-o", "REPORTED": "t-r", "CLAIM": "t-x"}
@@ -72,8 +78,25 @@ def small(i, s):
 
 
 def index_line(i, s):
-    return (f'<li><b class="n">{i}</b><b class="pl">{esc(s["place"])}:</b> {esc(s["head"])}'
+    col = CONT[s["cont"]]
+    return (f'<li><b class="n" style="background:{col}">{i}</b>{flag(s["code"])}'
+            f'<b class="pl">{esc(s["place"])}:</b> {esc(s["head"])}'
             f' <i class="ti {TAG_CSS[s["tag"]]}">{s["tag"][0]}</i></li>')
+
+
+def index_list(items, first):
+    # one coloured heading per continent, items keep their running numbers
+    out, cur = [], None
+    for k, s in enumerate(items):
+        if s["cont"] != cur:
+            cur = s["cont"]
+            out.append(f'<li class="ch" style="color:{CONT[cur]};border-color:{CONT[cur]}">{cur}</li>')
+        out.append(index_line(first + k, s))
+    return "".join(out)
+
+
+def cont_legend():
+    return "".join(f'<span><i style="background:{c}"></i>{n.title()}</span>' for n, c in stories.CONTINENTS)
 
 
 CSS = """
@@ -132,9 +155,17 @@ html,body{width:1024px;height:1024px;overflow:hidden;background:#F8F6F0;color:#1
 .legend{font:500 8.5px/12px 'Noto Sans';color:#333;margin-top:3px}
 .legend .tag{margin-right:2px}
 .index{flex:1;width:0}
-.index ul{list-style:none;columns:2;column-gap:12px;font:500 10.8px/16.6px 'Noto Sans';color:#111}
-.index li{white-space:nowrap;overflow:hidden}
-.index .n{color:#c8102e;display:inline-block;width:16px;font-weight:900}
+.index ul{list-style:none;columns:2;column-gap:12px;font:500 10.4px/13.6px 'Noto Sans';color:#111;column-fill:auto;height:192px}
+.index li{white-space:nowrap;overflow:hidden;display:flex;align-items:center;height:13.6px}
+.index li.ch{font:900 8px/10px 'Noto Sans';letter-spacing:1px;height:11px;border-bottom:1px solid;margin-top:1px}
+.index .n{display:inline-block;width:14px;height:14px;border-radius:50%;color:#fff;font:900 9px/14px 'Noto Sans';
+ text-align:center;flex:none;margin-right:3px;letter-spacing:-.3px}
+.index .flag{flex:none;margin-right:4px;display:block}
+.index .pl{margin-right:3px}
+.index .ti{margin-left:3px;flex:none}
+.cleg{display:flex;flex-wrap:wrap;gap:2px 9px;font:700 8.5px/12px 'Noto Sans';color:#222;margin-top:3px}
+.cleg span{display:flex;align-items:center}
+.cleg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}
 .index .pl{font-weight:800}
 .ti{font:800 7px/10px 'Noto Sans';color:#fff;padding:0 2px;border-radius:2px;font-style:normal;vertical-align:1px}
 .left{border:1.5px solid #c8102e;margin-top:7px;padding:4px 8px;font:500 10.5px/14px 'Noto Sans';color:#222}
@@ -148,12 +179,12 @@ def build():
     S = stories
     heroes = "".join(hero(i + 1, s) for i, s in enumerate(S.HEROES))
     cards = "".join(small(i + 4, s) for i, s in enumerate(S.CARDS))
-    idx = "".join(index_line(i + 14, s) for i, s in enumerate(S.INDEX))
+    idx = index_list(S.INDEX, 14)
     utc = "".join(f'<span><b>{esc(t)}</b>{esc(w)}</span>' for t, w in S.UTC)
     regions = "".join(f'<div style="flex:{g[1]};background:{g[2]}">{esc(g[3] if len(g) > 3 else f"{g[0]} {g[1]}")}</div>'
                       for g in S.REGIONS)
     nums = "".join(f'<div><b>{esc(a)}</b>{esc(b)}</div>' for a, b in S.NUMBERS)
-    pins = [(i + 1,) + tuple(p) + ((0, 0) if len(p) == 2 else ()) for i, p in enumerate(S.PINS)]
+    pins = [(i + 1,) + tuple(p) + ((0, 0) if len(p) == 3 else ()) for i, p in enumerate(S.PINS)]
     legend = "".join(f'{tag(t)}{esc(d)} &nbsp;' for t, d in S.LEGEND)
     page = f"""<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body><div class="page">
 <div class="strap"><span>THE WORLD IN ONE DAY · FULL-DAY EDITION</span><span class="r">{esc(S.STRAP)}</span></div>
@@ -167,7 +198,7 @@ def build():
 <div class="sec">TEN MORE FROM TUESDAY<i>{esc(S.CARDS_NOTE)}</i></div>
 <div class="cards">{cards}</div>
 <div class="sec">WHERE IT HAPPENED · ALSO ON TUESDAY 24 NOVEMBER<i>{esc(S.INDEX_NOTE)}</i></div>
-<div class="bottom"><div class="mapbox">{world_map(pins)}<div class="legend">{legend}</div></div>
+<div class="bottom"><div class="mapbox">{world_map(pins)}<div class="cleg"><b>CONTINENTS</b>{cont_legend()}</div><div class="legend">{legend}</div></div>
 <div class="index"><ul>{idx}</ul></div></div>
 <div class="left"><b class="h">DATE CHECK · WHAT WE LEFT OUT</b>{S.LEFT_OUT}</div>
 <div class="foot"><span>{esc(S.FOOT_L)}</span><span>{esc(S.FOOT_R)}</span></div>

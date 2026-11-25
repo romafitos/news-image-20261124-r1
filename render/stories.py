@@ -59,38 +59,45 @@ CARDS = [
          head="World chess title opens with a draw", dek="Sindarov-Gukesh, 38 moves"),
 ]
 
+# index 14-35, grouped by continent (colour = continent circle); code = flag drawn by flags.py
+CONTINENTS = [("EUROPE", "#1E40AF"), ("AFRICA", "#D97706"), ("AMERICAS", "#B91C1C"),
+              ("ASIA", "#047857"), ("OCEANIA", "#0F766E")]
 INDEX = [
-    dict(place="Uzhhorod", tag="OFFICIAL", head="Hungary's Magyar meets Zelensky"),
-    dict(place="Versailles", tag="CONFIRMED", head="Nahel officer sent to murder trial"),
-    dict(place="Brussels", tag="REPORTED", head="EU pact to move just 1,283 migrants"),
-    dict(place="Stockholm", tag="CONFIRMED", head="PM vote on Kristersson set for 30 Nov"),
-    dict(place="Dakar", tag="REPORTED", head="~175 missing on Europe-bound boat"),
-    dict(place="DR Congo", tag="OFFICIAL", head="Gavi deal for 1.5M Ebola vaccine doses"),
-    dict(place="Gauteng", tag="OFFICIAL", head="Level 4 storm warning for Johannesburg"),
-    dict(place="Washington", tag="REPORTED", head="US readies tariffs on 16 partners"),
-    dict(place="New York", tag="OFFICIAL", head="Consumer confidence leaps to 103.3"),
-    dict(place="Nasdaq", tag="CONFIRMED", head="Anthropic closes below $83 IPO price"),
-    dict(place="Havana", tag="OFFICIAL", head="WHO gives $2M, urges end to blockade"),
-    dict(place="Brasília", tag="REPORTED", head="Lula backs 2nd spending curb; real +2%"),
-    dict(place="Kourou", tag="OFFICIAL", head="Ariane 6 lofts 36 Amazon Leo satellites"),
-    dict(place="Taplejung", tag="CONFIRMED", head="M5.3 quake jolts east Nepal; no damage"),
-    dict(place="Jiuquan", tag="CONFIRMED", head="Pakistani named for China's station"),
-    dict(place="Singapore", tag="OFFICIAL", head="Q3 GDP +6.1%; 2026 outlook now ~6%"),
-    dict(place="Kuala Lumpur", tag="OFFICIAL", head="6,803 Myanmar nationals to go home"),
-    dict(place="Dhaka", tag="CONFIRMED", head="Hasina plans 16 Dec return; 'handcuffs'"),
-    dict(place="Pyongyang", tag="OFFICIAL", head="Kim Yo Jong threatens Swiss office"),
-    dict(place="Tokyo", tag="CONFIRMED", head="Takaichi orders 2nd extra budget"),
-    dict(place="Canberra", tag="CONFIRMED", head="Labor-Greens deal: 5% big-tech fines"),
-    dict(place="Canberra", tag="OFFICIAL", head="Visiting Singapore PM: no chip 'conduit'"),
+    dict(cont="EUROPE", code="UA", place="Uzhhorod", tag="OFFICIAL", head="Hungary's Magyar meets Zelensky"),
+    dict(cont="EUROPE", code="FR", place="Versailles", tag="CONFIRMED", head="Nahel officer sent to murder trial"),
+    dict(cont="EUROPE", code="EU", place="Brussels", tag="REPORTED", head="EU pact to move just 1,283 migrants"),
+    dict(cont="EUROPE", code="SE", place="Stockholm", tag="CONFIRMED", head="PM vote on Kristersson set for 30 Nov"),
+    dict(cont="AFRICA", code="SN", place="Dakar", tag="REPORTED", head="~175 missing on Europe-bound boat"),
+    dict(cont="AFRICA", code="CD", place="DR Congo", tag="OFFICIAL", head="Gavi deal for 1.5M Ebola vaccine doses"),
+    dict(cont="AFRICA", code="ZA", place="Gauteng", tag="OFFICIAL", head="Level 4 storm warning for Johannesburg"),
+    dict(cont="AMERICAS", code="US", place="Washington", tag="REPORTED", head="US readies tariffs on 16 partners"),
+    dict(cont="AMERICAS", code="US", place="New York", tag="OFFICIAL", head="Consumer confidence leaps to 103.3"),
+    dict(cont="AMERICAS", code="US", place="Nasdaq", tag="CONFIRMED", head="Anthropic closes below $83 IPO price"),
+    dict(cont="AMERICAS", code="CU", place="Havana", tag="OFFICIAL", head="WHO gives $2M, urges end to blockade"),
+    dict(cont="AMERICAS", code="BR", place="Brasília", tag="REPORTED", head="Lula backs 2nd spending curb; real +2%"),
+    dict(cont="AMERICAS", code="FR", place="Kourou", tag="OFFICIAL", head="Ariane 6 lofts 36 Amazon Leo satellites"),
+    dict(cont="ASIA", code="NP", place="Taplejung", tag="CONFIRMED", head="M5.3 quake jolts east Nepal; no damage"),
+    dict(cont="ASIA", code="CN", place="Jiuquan", tag="CONFIRMED", head="Pakistani named for China's station"),
+    dict(cont="ASIA", code="SG", place="Singapore", tag="OFFICIAL", head="Q3 GDP +6.1%; 2026 outlook now ~6%"),
+    dict(cont="ASIA", code="MY", place="Kuala Lumpur", tag="OFFICIAL", head="6,803 Myanmar nationals to go home"),
+    dict(cont="ASIA", code="BD", place="Dhaka", tag="CONFIRMED", head="Hasina plans 16 Dec return; 'handcuffs'"),
+    dict(cont="ASIA", code="KP", place="Pyongyang", tag="OFFICIAL", head="Kim Yo Jong threatens Swiss office"),
+    dict(cont="ASIA", code="JP", place="Tokyo", tag="CONFIRMED", head="Takaichi orders 2nd extra budget"),
+    dict(cont="OCEANIA", code="AU", place="Canberra", tag="CONFIRMED", head="Labor-Greens deal: 5% big-tech fines"),
+    dict(cont="OCEANIA", code="AU", place="Canberra", tag="OFFICIAL", head="Visiting Singapore PM: no chip 'conduit'"),
 ]
 
 # lon, lat for stories 1-13, with an optional label nudge (dx, dy) in map px
-PINS = [(56.4, 26.6, 8, 5), (121.5, 25.0), (130.9, 37.5), (35.1, 47.8, 4, -8), (2.3, 48.9, -9, -8), (34.4, 31.5, -9, 5),
-        (-74.0, 40.7), (44.4, 33.3, 6, -7), (105.8, 21.0, -4, 6), (-73.6, 4.1), (39.6, 12.4), (-17.4, 14.7), (6.1, 46.2, -10, 6)]
+# real lon, lat for stories 1-13 + continent (pin colour), with an optional label nudge (dx, dy) in map px
+PINS = [(56.4, 26.6, "ASIA", 9, 6), (121.5, 25.0, "ASIA", 6, 6), (130.9, 37.5, "ASIA", 9, -3),
+        (35.1, 47.8, "EUROPE", 7, -9), (2.3, 48.9, "EUROPE", -10, -9), (34.4, 31.5, "ASIA", -10, 3),
+        (-74.0, 40.7, "AMERICAS", 8, -6), (44.4, 33.3, "ASIA", 9, -7), (105.8, 21.0, "ASIA", -2, 9),
+        (-73.6, 4.1, "AMERICAS", 5, 5), (39.6, 12.4, "AFRICA", 0, 0), (-16.2, 14.6, "AFRICA", 10, 2),
+        (6.1, 46.2, "EUROPE", -11, 7)]
 LEGEND = [("CONFIRMED", "2+ outlets or a final result"), ("OFFICIAL", "on the record"),
           ("REPORTED", "outlets citing sources"), ("CLAIM", "one side, unverified")]
 CARDS_NOTE = "stories 1-13 are pinned on the map"
-INDEX_NOTE = "14-35 · hard news only · letters = tag"
+INDEX_NOTE = "14-35 · grouped by continent · hard news only · letters = tag"
 LEFT_OUT = ("Nvidia reinstates Jensen Huang (Mon 23) · IRGC's first three-tanker claim (Mon 23 night) · "
             "US sanctions Iran's shadow banks (Mon 23) · Denmark school phone ban (Mon 23) · US states sue over Grok images (Mon 23) · "
             "Mediazona war-dead count (Mon 23) · Rutte's space-defence speech (Mon 23) · DR Congo plane lost (Sun 22) · "
