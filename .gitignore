@@ -1,0 +1,4 @@
+render/out/
+__pycache__/
+*.pyc
+out/
